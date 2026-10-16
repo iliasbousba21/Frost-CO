@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#142b3e"><title>Checkout | FROST & CO.</title>
+<meta name="theme-color" content="#142b3e"><link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27&gt;&lt;text y=%27.9em%27 font-size=%2790%27&gt;❄️&lt;/text&gt;&lt;/svg&gt;"><title>Checkout | FROST & CO.</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 :root{--navy:#12283b;--slate:#586978;--ice:#edf6f8;--gold:#be9971}
@@ -34,12 +34,10 @@ a{color:inherit;text-decoration:none}.announcement{background:#142b3e;color:whit
 <nav class="nav"><a href="index.html">Home</a><a href="index.html#producten">Shop</a><a href="shipping.html">Shipping & Returns</a><a href="contact.html">Contact</a></nav></header>
 <section class="page-hero"><div style="text-transform:uppercase;letter-spacing:.26em;font-size:12px;font-weight:700">Frost & Co.</div><h1>Secure checkout</h1><p>Complete your order through Stripe's secure hosted payment page.</p></section>
 <main class="content-wrap">
-<div class="notice"><strong>Before you launch:</strong> this checkout requires a configured Stripe shipping rate and live business/account setup. Test with Stripe test mode first.</div>
 <div class="layout">
 <section class="panel"><h2>Your delivery & payment</h2>
 <p>When you continue, Stripe will collect your email, shipping address and payment details securely. Your card details never pass through this website.</p>
-<p class="muted">Available delivery countries are currently Belgium, the Netherlands, France, Germany and Luxembourg. Change the allowed countries in <code>api/create-checkout-session.js</code> if your actual shipping policy differs.</p>
-<button id="payButton" class="button wide" type="button">Continue to secure payment →</button>
+<a id="payButton" class="button wide" href="https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00">Continue to secure payment →</a>
 <p id="status" class="status" role="status" aria-live="polite"></p>
 <a href="index.html#producten">← Continue shopping</a>
 </section>
@@ -47,47 +45,44 @@ a{color:inherit;text-decoration:none}.announcement{background:#142b3e;color:whit
 <div class="summary"><span>Unit price</span><strong>€12.99</strong></div>
 <div class="summary"><span>Quantity</span><strong id="quantity">1</strong></div>
 <div class="summary"><span>Subtotal</span><strong id="subtotal">€12.99</strong></div>
-<div class="summary"><span>Shipping</span><span>Shown at Stripe checkout</span></div>
-<p class="muted">The final total is shown before you pay. The server sets the product price; the browser cannot change it.</p>
+<div class="summary"><span>Shipping</span><span>Calculated at payment</span></div>
+<p class="muted">The final total is shown on the secure Stripe page before you pay.</p>
 </aside></div></main>
 <footer class="footer">© 2026 FROST & CO. · Secure payments powered by Stripe</footer>
 <script>
 (() => {
-  const cartKey = 'frost-cart';
+  // One Stripe Payment Link per quantity. Add your 2-pair / 3-pair links here.
+  const LINKS = {
+    1: 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00',
+    2: '',
+    3: ''
+  };
+  const BASE_LINK = LINKS[1];
   const euro = n => new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(n);
   let cart = {};
-  try { cart = JSON.parse(localStorage.getItem(cartKey) || '{}') || {}; } catch (_) {}
+  try { cart = JSON.parse(localStorage.getItem('frost-cart') || '{}') || {}; } catch (_) {}
   const quantity = Math.max(0, Math.floor(Number(cart['5']) || 0));
   document.getElementById('quantity').textContent = quantity;
   document.getElementById('subtotal').textContent = euro(quantity * 12.99);
-  document.getElementById('orderItems').textContent = quantity
-    ? 'ArcticHeat™ Thermal Gloves × ' + quantity
-    : 'Your cart is empty.';
+  document.getElementById('orderItems').textContent = quantity ? 'ArcticHeat™ Thermal Gloves × ' + quantity : 'Your cart is empty.';
   const button = document.getElementById('payButton');
   const status = document.getElementById('status');
-  const params = new URLSearchParams(location.search);
-  if (params.get('cancelled') === '1') status.textContent = 'Payment cancelled. Your cart is still saved.';
-  if (!quantity) { button.disabled = true; status.textContent = 'Your cart is empty. Return to the shop and add the gloves first.'; }
-  button.addEventListener('click', async () => {
-    if (!quantity) return;
-    button.disabled = true;
-    button.textContent = 'Connecting to Stripe…';
-    status.textContent = '';
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({quantity})
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.url) throw new Error(data.error || 'Checkout could not be started. Please try again.');
-      location.assign(data.url);
-    } catch (error) {
-      status.textContent = error.message || 'Something went wrong. Please try again.';
-      button.disabled = false;
-      button.textContent = 'Try secure checkout again →';
+  if (!quantity) {
+    button.removeAttribute('href');
+    button.style.opacity = '.6';
+    button.style.pointerEvents = 'none';
+    status.textContent = 'Your cart is empty. Return to the shop and add the gloves first.';
+  } else {
+    if (LINKS[quantity]) {
+      button.href = LINKS[quantity];
+    } else {
+      button.href = BASE_LINK;
+      status.style.color = '#533e28';
+      status.textContent = quantity > 1
+        ? 'Tip: on the next page, change the quantity to ' + quantity + ' before you pay.'
+        : '';
     }
-  });
+  }
 })();
 </script>
 </body></html>
