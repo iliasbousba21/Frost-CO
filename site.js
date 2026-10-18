@@ -1,34 +1,33 @@
 // Frost & Co. product catalog and shop behaviour.
-// Edit products here. Placeholder rows stay active:false so they cannot be bought.
-// Checkout setup (Stripe key, price IDs, deploying the function): see CHECKOUT.md.
+// A product can be bought only when active is true and paymentLink is set.
+// How to add a product: CHECKOUT.md
 
 const SUPPORT_EMAIL = 'frost-co@outlook.com';
 const STRIPE_GLOVE_LINK = 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00';
 
-// Leave this empty to call /api/checkout on the same host (the site is on Vercel).
-// If the pages stay on GitHub Pages, set the full URL of the deployed function, for example:
-// 'https://your-project.vercel.app/api/checkout'
-const CHECKOUT_ENDPOINT = '';
-
 const products = [
-  {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing'},
-  {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics'},
-  {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics'},
-  {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics'},
-  {id:104,name:'Magnetic Phone Holder',category:'Electronics',price:12.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▣',img:'',active:false,rail:'electronics'},
-  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'◒',img:'',active:false,rail:'clothing'},
-  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▱',img:'',active:false,rail:'clothing'},
-  {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing'},
-  {id:109,name:'LED Ambient Light',category:'Home & Lifestyle',price:18.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'✦',img:'',active:false,rail:'home'},
-  {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home'},
-  {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home'},
-  {id:112,name:'Mini Night Light',category:'Home & Lifestyle',price:11.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'☼',img:'',active:false,rail:'home'}
+  {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing'},
+  {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics'},
+  {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics'},
+  {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics'},
+  {id:104,name:'Magnetic Phone Holder',category:'Electronics',price:12.99,label:'PRODUCT PLACEHOLDER',icon:'▣',img:'',active:false,rail:'electronics'},
+  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,label:'PRODUCT PLACEHOLDER',icon:'◒',img:'',active:false,rail:'clothing'},
+  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,label:'PRODUCT PLACEHOLDER',icon:'▱',img:'',active:false,rail:'clothing'},
+  {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing'},
+  {id:109,name:'LED Ambient Light',category:'Home & Lifestyle',price:18.99,label:'PRODUCT PLACEHOLDER',icon:'✦',img:'',active:false,rail:'home'},
+  {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home'},
+  {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home'},
+  {id:112,name:'Mini Night Light',category:'Home & Lifestyle',price:11.99,label:'PRODUCT PLACEHOLDER',icon:'☼',img:'',active:false,rail:'home'}
 ];
 
 const euro = n => new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(n);
 
-function checkoutEndpointUrl() {
-  return CHECKOUT_ENDPOINT || '/api/checkout';
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
+}
+
+function forSale(product) {
+  return !!(product && product.active && product.paymentLink);
 }
 
 function activeCartLines(cart) {
@@ -36,64 +35,32 @@ function activeCartLines(cart) {
     const product = products.find(item => item.id === Number(id));
     const quantity = Math.min(99, Math.max(0, Math.floor(Number(qty) || 0)));
     return {product, quantity};
-  }).filter(line => line.product && line.product.active && line.quantity > 0);
+  }).filter(line => forSale(line.product) && line.quantity > 0);
 }
 
-function paymentLinkNotice(lines) {
-  if (lines.length !== 1 || !lines[0].product.paymentLink || lines[0].quantity <= 1) return '';
-  return 'On the secure payment page, change the quantity to ' + lines[0].quantity + ' before you pay.';
+function quantityNote(line) {
+  if (!line || line.quantity <= 1) return '';
+  return 'On the payment page, set the quantity to ' + line.quantity + ' before you pay.';
 }
 
-function blockedCheckoutMessage(lines) {
-  if (lines.length > 1) {
-    return 'Paying for several products at once needs Stripe Checkout, which is not connected yet. You can still buy the ArcticHeat™ Thermal Gloves on their own from the shop.';
-  }
-  return 'This product cannot be paid for until Stripe Checkout is connected. Email ' + SUPPORT_EMAIL + ' if you need help.';
-}
-
-async function startStripeCheckout(lines, options = {}) {
-  const list = Array.isArray(lines) ? lines : [];
-  if (!list.length) return {ok:false, action:'empty', message:'Your cart is empty.'};
-  const single = list.length === 1 && list[0].product.paymentLink ? list[0] : null;
-  const fetchImpl = options.fetchImpl || (typeof fetch === 'function' ? fetch : null);
-  const endpoint = options.endpoint || checkoutEndpointUrl();
-  if (fetchImpl) {
-    try {
-      const response = await fetchImpl(endpoint, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({items: list.map(line => ({id: line.product.id, quantity: line.quantity}))}),
-        signal: options.signal
-      });
-      const type = (response.headers && response.headers.get && response.headers.get('content-type')) || '';
-      let data = {};
-      if (type.includes('json') && typeof response.json === 'function') {
-        data = await response.json() || {};
-      }
-      if (response.ok && data.url) return {ok:true, action:'redirect', url:data.url};
-      if (!single && data.error && response.status && response.status !== 404 && data.code !== 'not_configured') {
-        return {ok:false, action:'blocked', message:data.error};
-      }
-    } catch (error) {
-      if (error && error.name === 'AbortError' && !options.treatAbortAsUnconfigured) throw error;
-    }
-  }
-  if (single) {
-    return {ok:true, action:'payment-link', url:single.product.paymentLink, notice:paymentLinkNotice(list)};
-  }
-  return {ok:false, action:'blocked', message:blockedCheckoutMessage(list)};
+function payItemsMarkup(lines) {
+  return (lines || []).map(line => {
+    const cents = Math.round(line.product.price * 100) * line.quantity;
+    const note = quantityNote(line);
+    const name = escapeHtml(line.product.name);
+    return `<article class="pay-item"><div class="summary order-line"><span>${name} × ${line.quantity}</span><strong>${euro(cents / 100)}</strong></div><a class="button wide" href="${escapeHtml(line.product.paymentLink)}">Pay for this item →</a>${note ? `<p class="muted">${escapeHtml(note)}</p>` : ''}</article>`;
+  }).join('');
 }
 
 const catalog = {
   supportEmail: SUPPORT_EMAIL,
   glovePaymentLink: STRIPE_GLOVE_LINK,
-  checkoutEndpoint: CHECKOUT_ENDPOINT,
-  checkoutEndpointUrl,
   products,
   euro,
+  forSale,
   activeCartLines,
-  paymentLinkNotice,
-  startStripeCheckout
+  quantityNote,
+  payItemsMarkup
 };
 
 if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
@@ -105,7 +72,6 @@ if (typeof document !== 'undefined') {
   };
   if (typeof window !== 'undefined') window.Frost = catalog;
 
-  const escapeHtml = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
   let cart = catalog.readCart();
   const $ = id => document.getElementById(id);
 
@@ -141,10 +107,10 @@ if (typeof document !== 'undefined') {
     const media = product.img
       ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" loading="lazy">`
       : `<div class="placeholder-art" aria-hidden="true">${product.icon || '＋'}</div>`;
-    const actions = product.active
-      ? `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>${product.paymentLink ? `<a class="button" href="${escapeHtml(product.paymentLink)}">BUY NOW →</a>` : ''}`
+    const actions = forSale(product)
+      ? `<button class="add" data-add="${product.id}">＋ ADD TO CART</button><a class="button" href="${escapeHtml(product.paymentLink)}">BUY NOW →</a>`
       : `<button class="add" disabled title="Add a real product and payment link to activate">COMING SOON</button>`;
-    return `<article class="product-card"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
+    return `<article class="product-card"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${forSale(product) ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
   }
   for (const rail of ['electronics', 'clothing', 'home']) {
     const el = $('rail-' + rail);
@@ -158,7 +124,7 @@ if (typeof document !== 'undefined') {
     const button = event.target.closest('[data-add]');
     if (!button) return;
     const product = products.find(item => item.id === Number(button.dataset.add));
-    if (!product?.active) return;
+    if (!forSale(product)) return;
     cart[product.id] = Math.min(99, (Number(cart[product.id]) || 0) + 1);
     save();
     notify(product.name + ' added to cart');
