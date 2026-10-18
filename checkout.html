@@ -1,88 +1,300 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#142b3e"><link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27&gt;&lt;text y=%27.9em%27 font-size=%2790%27&gt;❄️&lt;/text&gt;&lt;/svg&gt;"><title>Checkout | FROST & CO.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#142b3e">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Checkout | FROST &amp; CO.</title>
+<meta name="description" content="Review your Frost &amp; Co. cart and pay securely with Stripe.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
-:root{--navy:#12283b;--slate:#586978;--ice:#edf6f8;--gold:#be9971}
-*{box-sizing:border-box}body{margin:0;font:15px 'DM Sans',Arial,sans-serif;color:var(--navy);background:#fafbfb}
-a{color:inherit;text-decoration:none}.announcement{background:#142b3e;color:white;text-align:center;padding:10px 12px;font-size:12px;letter-spacing:.09em}
-.header{height:81px;display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,20px);background:white;border-bottom:1px solid #e8eff1}
-.brand{font:700 27px 'Playfair Display',serif;letter-spacing:.07em}.brand span{color:#b4c7d1}
-.nav{display:flex;gap:22px;font-size:13px;font-weight:600}.nav a:hover{color:#7897a5}
+:root{--navy:#12283b;--slate:#586978;--ice:#edf6f8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px 'DM Sans',Arial,sans-serif;color:var(--navy);background:#fafbfb}
+button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.announcement{background:#142b3e;color:#fff;text-align:center;padding:10px 12px;font-size:11px;letter-spacing:.12em}
+.header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 max(5vw,20px);background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #e8eff1}
+.brand{font:700 26px 'Playfair Display',serif;letter-spacing:.07em;white-space:nowrap}.brand span{color:#b4c7d1}
+.nav{display:flex;align-items:center;gap:30px;font-size:13px;font-weight:600}.nav a:hover{color:#7897a5}
+.icons{display:flex;align-items:center;gap:14px}.cart-btn{display:flex;gap:8px;align-items:center;border:0;background:transparent;color:var(--navy);font-weight:700}
+.cart-count{background:var(--navy);color:white;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-size:11px}
+.menu-btn{display:none;border:0;background:transparent;font-size:25px}
 .page-hero{padding:75px 20px 60px;background:linear-gradient(125deg,#142b3e,#385c75);color:white;text-align:center}
 .page-hero h1{font:500 clamp(37px,5vw,60px) 'Playfair Display',serif;margin:12px 0}
-.page-hero p{color:#d9e7ef;max-width:600px;margin:0 auto;line-height:1.7}
+.page-hero p{color:#d9e7ef;max-width:640px;margin:0 auto;line-height:1.7}
+.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-weight:700;font-size:11px}
 .content-wrap{max-width:1000px;margin:0 auto;padding:48px 22px 90px}
-.notice{background:#fff5e7;border:1px solid #e8c992;color:#533e28;padding:16px;line-height:1.7;border-radius:4px;margin-bottom:25px}
 .layout{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:start}
 .panel{background:#fff;border:1px solid #dbe5e9;padding:28px;margin:0 0 18px;border-radius:5px}
 .panel h2{font:500 27px 'Playfair Display',serif;margin:0 0 14px}
 .panel p{line-height:1.8;color:#546878}.muted{font-size:13px;color:#708493}
-.summary{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #e3eaed}.summary.total{font-weight:bold;font-size:20px;border-bottom:0}
-.button{border:1px solid var(--navy);background:var(--navy);color:white;padding:16px 25px;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.summary{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #e3eaed}
+.button{border:1px solid var(--navy);background:var(--navy);color:white;padding:16px 25px;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-align:center}
 .button:hover{background:#31566d}.button:disabled{opacity:.6;cursor:wait}.wide{width:100%}
-.footer{background:#f0f4f5;padding:35px 20px;text-align:center;color:#697c87;font-size:12px}
-.status{min-height:22px;color:#9a3d24;font-size:13px;line-height:1.5}
-@media(max-width:700px){.header{height:auto;min-height:68px;gap:15px;flex-wrap:wrap;padding:18px 20px}.brand{font-size:22px}.nav{flex-wrap:wrap;gap:12px}.layout{grid-template-columns:1fr}.panel{padding:22px}}
+.line{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #e3eaed}
+.line img,.line .ph{width:72px;height:80px;object-fit:cover;background:#eef3f5;border-radius:3px}
+.line .ph{display:grid;place-items:center;color:#8298a4;font-size:22px}
+.line .name{font-weight:700}.line .meta{color:#708493;font-size:13px;margin-top:4px}
+.text-btn{display:block;margin-top:6px;margin-left:auto;border:0;background:none;padding:0;color:#5d7380;text-decoration:underline;font-size:12px}
+.pay-link{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:14px 0;border-top:1px solid #e3eaed}
+.pay-link .button{flex-shrink:0;padding:12px 14px}
+.status{min-height:22px;color:#546878;font-size:13px;line-height:1.5}
+.status.error{color:#9a3d24}.status.warn{color:#533e28}
+.footer{background:#f0f4f5;padding:42px max(5vw,20px) 22px}.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;max-width:1200px;margin:auto}
+.footer p,.footer a{font-size:13px;color:#697c87;line-height:2}.footer-links{display:flex;flex-direction:column}.footer h4{margin:4px 0 12px}
+.footer-bottom{text-align:center;border-top:1px solid #d9e4e9;margin-top:28px;padding-top:20px;color:#82939d;font-size:12px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,26,37,.55);z-index:49}.overlay.active{display:block}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(430px,100%);z-index:50;background:#fff;box-shadow:-10px 0 45px #15283b2a;transform:translateX(105%);transition:.3s;display:flex;flex-direction:column}.drawer.active{transform:translateX(0)}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:23px;border-bottom:1px solid #e6eef1}.drawer-header h2{font:500 26px 'Playfair Display',serif;margin:0}
+.close{font-size:25px;border:0;background:none}.cart-items{padding:12px 23px;overflow:auto;flex:1}
+.cart-item{display:grid;grid-template-columns:70px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid #e7eef1}
+.cart-item img{width:70px;height:78px;object-fit:cover;background:#eef3f5}.cart-item strong{font-size:13px}.cart-item p{font-size:13px;margin:6px 0}
+.qty{display:flex;align-items:center;gap:10px;font-size:12px}.qty button{background:#edf4f6;border:0;width:25px;height:25px}
+.cart-footer{border-top:1px solid #e6eef1;padding:22px}.subtotal{display:flex;justify-content:space-between;margin-bottom:15px}
+.cart-footer .button{width:100%}.disclaimer{font-size:11px;line-height:1.6;color:#80919b;margin-top:10px}.empty{color:#80919b;line-height:1.8}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,120px);background:#142b3e;color:#fff;padding:14px 19px;z-index:80;transition:.25s;font-size:13px}.toast.show{transform:translate(-50%,0)}
+.back{display:inline-block;margin-top:16px}
+[hidden]{display:none!important}:focus-visible{outline:3px solid #92bbd0;outline-offset:3px}
+@media(max-width:700px){
+  .layout,.footer-inner,.pay-link{grid-template-columns:1fr}
+  .pay-link{flex-direction:column;align-items:stretch}
+  .footer-inner{display:grid;grid-template-columns:1fr 1fr}.footer-inner>div:first-child{grid-column:span 2}
+  .header{height:68px}.brand{font-size:21px}.menu-btn{display:block}
+  .nav{display:none;position:absolute;top:68px;left:0;right:0;background:white;padding:22px;flex-direction:column;align-items:flex-start;box-shadow:0 8px 20px #10283b22}
+  .nav.show{display:flex}.panel{padding:22px}
+}
 </style>
 </head>
 <body>
-<div class="announcement">❄ ARCTICHEAT™ THERMAL GLOVES · €12.99 ❄</div>
-<header class="header"><a class="brand" href="index.html">FROST <span>&</span> CO.</a>
-<nav class="nav"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="shipping.html">Shipping & Returns</a><a href="contact.html">Contact</a></nav></header>
-<section class="page-hero"><div style="text-transform:uppercase;letter-spacing:.26em;font-size:12px;font-weight:700">Frost & Co.</div><h1>Secure checkout</h1><p>Complete your order through Stripe's secure hosted payment page.</p></section>
-<main class="content-wrap">
-<div class="layout">
-<section class="panel"><h2>Your delivery & payment</h2>
-<p>When you continue, Stripe will collect your email, shipping address and payment details securely. Your card details never pass through this website.</p>
-<a id="payButton" class="button wide" href="https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00">Continue to secure payment →</a>
-<p id="status" class="status" role="status" aria-live="polite"></p>
-<a href="shop.html">← Continue shopping</a>
+<div class="announcement">FROST &amp; CO. &nbsp; · &nbsp; EVERYDAY FINDS, WINTER ESSENTIALS &amp; MORE</div>
+<header class="header">
+  <a class="brand" href="index.html">FROST <span>&amp;</span> CO.</a>
+  <nav class="nav" id="nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="shipping.html">Shipping &amp; Returns</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="icons">
+    <button class="cart-btn" id="openCart" type="button" aria-label="Open shopping cart">🛍 <span class="cart-count" id="cartCount">0</span></button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">☰</button>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="eyebrow">Frost &amp; Co.</div>
+  <h1>Secure checkout</h1>
+  <p>Review everything in your cart, then pay on Stripe's secure page. Your card details never pass through this website.</p>
 </section>
-<aside class="panel"><h2>Your order</h2><div id="orderItems"></div>
-<div class="summary"><span>Unit price</span><strong>€12.99</strong></div>
-<div class="summary"><span>Quantity</span><strong id="quantity">1</strong></div>
-<div class="summary"><span>Subtotal</span><strong id="subtotal">€12.99</strong></div>
-<div class="summary"><span>Shipping</span><span>Calculated at payment</span></div>
-<p class="muted">The final total is shown on the secure Stripe page before you pay.</p>
-</aside></div></main>
-<footer class="footer">© 2026 FROST & CO. · Secure payments powered by Stripe</footer>
+<main class="content-wrap">
+  <div class="layout">
+    <section class="panel">
+      <h2>Your delivery &amp; payment</h2>
+      <p>When you continue, Stripe collects your email, shipping address and payment details. The amount on that page includes every item below.</p>
+      <button id="payButton" class="button wide" type="button">Continue to secure payment →</button>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <div id="separatePay" hidden>
+        <div id="separateLinks"></div>
+      </div>
+      <a class="back" href="shop.html">← Continue shopping</a>
+    </section>
+    <aside class="panel">
+      <h2>Your order</h2>
+      <div id="orderItems"></div>
+      <div class="summary"><span>Subtotal</span><strong id="orderSubtotal">€0.00</strong></div>
+      <div class="summary"><span>Shipping</span><span>Calculated at payment</span></div>
+      <p class="muted">The final total is shown on the secure Stripe page before you pay.</p>
+    </aside>
+  </div>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <div><a class="brand" href="index.html">FROST <span>&amp;</span> CO.</a><p>Everyday finds, winter essentials and more.</p></div>
+    <div><h4>Explore</h4><div class="footer-links"><a href="shop.html">All products</a><a href="shop.html#electronics">Electronics</a><a href="shop.html#clothing">Clothing</a><a href="shop.html#home">Home &amp; Lifestyle</a></div></div>
+    <div><h4>Customer Care</h4><div class="footer-links"><a href="contact.html">Contact</a><a href="shipping.html">Shipping &amp; Returns</a><a href="privacy.html">Privacy</a></div></div>
+  </div>
+  <div class="footer-bottom">© 2026 FROST &amp; CO. · Secure payments powered by Stripe</div>
+</footer>
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-header"><h2>Your Cart</h2><button class="close" id="closeCart" type="button" aria-label="Close cart">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="subtotal"><b>Subtotal</b><strong id="subtotal">€0.00</strong></div>
+    <button class="button" id="checkout" type="button">Checkout →</button>
+    <div class="disclaimer">Placeholders cannot be checked out. Shipping is confirmed at payment.</div>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="site.js"></script>
 <script>
 (() => {
-  // One Stripe Payment Link per quantity. Add your 2-pair / 3-pair links here.
-  const LINKS = {
-    1: 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00',
-    2: '',
-    3: ''
-  };
-  const BASE_LINK = LINKS[1];
-  const euro = n => new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(n);
-  let cart = {};
-  try { cart = JSON.parse(localStorage.getItem('frost-cart') || '{}') || {}; } catch (_) {}
-  const quantity = Math.max(0, Math.floor(Number(cart['5']) || 0));
-  document.getElementById('quantity').textContent = quantity;
-  document.getElementById('subtotal').textContent = euro(quantity * 12.99);
-  document.getElementById('orderItems').textContent = quantity ? 'ArcticHeat™ Thermal Gloves × ' + quantity : 'Your cart is empty.';
-  const button = document.getElementById('payButton');
+  const store = window.FrostStore;
   const status = document.getElementById('status');
-  if (!quantity) {
-    button.removeAttribute('href');
-    button.style.opacity = '.6';
-    button.style.pointerEvents = 'none';
-    status.textContent = 'Your cart is empty. Return to the shop and add the gloves first.';
-  } else {
-    if (LINKS[quantity]) {
-      button.href = LINKS[quantity];
-    } else {
-      button.href = BASE_LINK;
-      status.style.color = '#533e28';
-      status.textContent = quantity > 1
-        ? 'Tip: on the next page, change the quantity to ' + quantity + ' before you pay.'
-        : '';
-    }
+  const payButton = document.getElementById('payButton');
+  const orderItems = document.getElementById('orderItems');
+  const separatePay = document.getElementById('separatePay');
+  const separateLinks = document.getElementById('separateLinks');
+  const orderSubtotal = document.getElementById('orderSubtotal');
+  let mode = null;
+  let modePromise = null;
+
+  function setStatus(text, kind) {
+    status.textContent = text || '';
+    status.className = 'status' + (kind ? ' ' + kind : '');
   }
+
+  function readyEntries() {
+    return store.cartEntries().filter(entry => entry.product && entry.product.active);
+  }
+
+  function render() {
+    const entries = store.cartEntries();
+    if (!entries.length) {
+      orderItems.innerHTML = '<p class="muted">Your cart is empty.</p>';
+      orderSubtotal.textContent = store.euro(0);
+      return;
+    }
+    let total = 0;
+    orderItems.innerHTML = entries.map(entry => {
+      const product = entry.product;
+      const name = product ? store.esc(product.name) : 'Item no longer in the shop';
+      let meta = 'Not available';
+      let amount = '';
+      if (product && product.active) {
+        total += product.price * entry.quantity;
+        meta = entry.quantity + ' × ' + store.euro(product.price);
+        amount = store.euro(product.price * entry.quantity);
+      } else if (product) {
+        meta = 'Not available yet';
+      }
+      const thumb = product && product.img
+        ? '<img src="' + store.esc(product.img) + '" alt="">'
+        : '<div class="ph" aria-hidden="true">' + store.esc(product ? (product.icon || '＋') : '–') + '</div>';
+      return '<div class="line">' + thumb + '<div><div class="name">' + name + '</div><div class="meta">' + meta + '</div></div><div><strong>' + amount + '</strong><button type="button" class="text-btn" data-remove="' + entry.id + '">Remove</button></div></div>';
+    }).join('');
+    orderSubtotal.textContent = store.euro(total);
+  }
+
+  function showSeparate(entries, message) {
+    const withLinks = entries.filter(entry => entry.product.paymentLink);
+    const without = entries.filter(entry => !entry.product.paymentLink);
+    if (!withLinks.length) {
+      payButton.hidden = true;
+      separatePay.hidden = true;
+      setStatus(message || 'Payment is not connected for these items yet.', 'warn');
+      return;
+    }
+    payButton.hidden = true;
+    separatePay.hidden = false;
+    separateLinks.innerHTML = withLinks.map(entry => {
+      const product = entry.product;
+      return '<div class="pay-link"><div><strong>' + store.esc(product.name) + '</strong><div class="meta">' + entry.quantity + ' × ' + store.euro(product.price) + ' · ' + store.euro(product.price * entry.quantity) + '</div></div><a class="button" href="' + store.esc(product.paymentLink) + '">Pay for this item →</a></div>';
+    }).join('') + without.map(entry => {
+      return '<div class="pay-link"><div><strong>' + store.esc(entry.product.name) + '</strong><div class="meta">Not available for separate payment yet.</div></div></div>';
+    }).join('');
+    setStatus(message || 'Each button is its own secure payment. For more than one of the same item, set that quantity on the Stripe page before you pay.', 'warn');
+  }
+
+  function applyMode() {
+    const entries = store.cartEntries();
+    const ready = entries.filter(entry => entry.product && entry.product.active);
+    const blocked = entries.filter(entry => !entry.product || !entry.product.active);
+    separatePay.hidden = true;
+    payButton.hidden = ready.length === 0;
+    payButton.disabled = false;
+    payButton.textContent = 'Continue to secure payment →';
+    if (!entries.length) {
+      setStatus('Your cart is empty. Return to the shop and add something you like.');
+      return;
+    }
+    if (blocked.length) {
+      payButton.hidden = true;
+      setStatus('Remove items that are not available yet. Only products ready in the shop can be paid for.', 'warn');
+      return;
+    }
+    if (mode === true) {
+      setStatus('');
+      return;
+    }
+    if (mode === false && ready.length === 1 && ready[0].product.paymentLink) {
+      setStatus(ready[0].quantity > 1 ? 'On the next page, change the quantity to ' + ready[0].quantity + ' before you pay.' : '', ready[0].quantity > 1 ? 'warn' : '');
+      return;
+    }
+    if (mode === false) showSeparate(ready);
+  }
+
+  function detectMode() {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 4000);
+    return fetch(store.CHECKOUT_ENDPOINT, {method: 'GET', signal: ctrl.signal})
+      .then(res => res.json().then(data => ({ok: res.ok, data})).catch(() => ({ok: false, data: null})))
+      .then(result => !!(result.ok && result.data && result.data.configured))
+      .catch(() => false)
+      .finally(() => clearTimeout(timer));
+  }
+
+  async function startCombined(entries) {
+    payButton.disabled = true;
+    setStatus('Opening secure payment…');
+    try {
+      const res = await fetch(store.CHECKOUT_ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({items: entries.map(entry => ({id: entry.product.id, quantity: entry.quantity}))})
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      if (res.status === 400) {
+        payButton.disabled = false;
+        setStatus(data.error || 'Check your cart and try again.', 'error');
+        return;
+      }
+    } catch (err) { /* fall through to per-item links */ }
+    mode = false;
+    showSeparate(entries, 'Combined payment is unavailable right now. You have not been charged. Each button below is its own secure payment. For more than one of the same item, set that quantity on the Stripe page before you pay.');
+    payButton.disabled = false;
+  }
+
+  payButton.addEventListener('click', async () => {
+    if (mode === null) mode = await modePromise;
+    const ready = readyEntries();
+    if (!ready.length || store.cartEntries().some(entry => !entry.product || !entry.product.active)) return;
+    if (mode) {
+      await startCombined(ready);
+      return;
+    }
+    if (ready.length === 1 && ready[0].product.paymentLink) {
+      window.location.href = ready[0].product.paymentLink;
+      return;
+    }
+    showSeparate(ready);
+  });
+
+  orderItems.addEventListener('click', event => {
+    const button = event.target.closest('[data-remove]');
+    if (!button) return;
+    store.setQuantity(button.dataset.remove, 0);
+  });
+
+  document.addEventListener('frost-cart-change', () => {
+    render();
+    applyMode();
+  });
+
+  render();
+  applyMode();
+  modePromise = detectMode().then(value => {
+    mode = value;
+    applyMode();
+    return value;
+  });
 })();
 </script>
-</body></html>
+</body>
+</html>

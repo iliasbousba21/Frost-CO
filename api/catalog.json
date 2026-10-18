@@ -1,0 +1,14 @@
+[
+  {"id": 5, "name": "ArcticHeat™ Thermal Gloves", "price": 12.99, "active": true, "stripePriceId": ""},
+  {"id": 101, "name": "Wireless Phone Charger", "price": 19.99, "active": false, "stripePriceId": ""},
+  {"id": 102, "name": "USB-C Fast Charger", "price": 14.99, "active": false, "stripePriceId": ""},
+  {"id": 103, "name": "Compact Bluetooth Speaker", "price": 24.99, "active": false, "stripePriceId": ""},
+  {"id": 104, "name": "Magnetic Phone Holder", "price": 12.99, "active": false, "stripePriceId": ""},
+  {"id": 106, "name": "Everyday Hoodie", "price": 29.99, "active": false, "stripePriceId": ""},
+  {"id": 107, "name": "Everyday Crossbody Bag", "price": 22.99, "active": false, "stripePriceId": ""},
+  {"id": 108, "name": "Winter Beanie", "price": 14.99, "active": false, "stripePriceId": ""},
+  {"id": 109, "name": "LED Ambient Light", "price": 18.99, "active": false, "stripePriceId": ""},
+  {"id": 110, "name": "Reusable Travel Bottle", "price": 16.99, "active": false, "stripePriceId": ""},
+  {"id": 111, "name": "Desk Organiser", "price": 13.99, "active": false, "stripePriceId": ""},
+  {"id": 112, "name": "Mini Night Light", "price": 11.99, "active": false, "stripePriceId": ""}
+]
