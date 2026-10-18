@@ -144,7 +144,9 @@ if (typeof document !== 'undefined') {
       ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" loading="lazy">`
       : `<div class="placeholder-art" aria-hidden="true">${product.icon || '＋'}</div>`;
     const actions = product.active
-      ? `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>${product.paymentLink ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener">BUY NOW →</a>` : ''}`
+      ? (product.paymentLink
+          ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener">BUY NOW →</a>`
+          : `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>`)
       : `<button class="add" disabled title="Add a real product and payment link to activate">COMING SOON</button>`;
     return `<article class="product-card"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
   }
