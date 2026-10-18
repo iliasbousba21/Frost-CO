@@ -12,12 +12,13 @@ const CHECKOUT_ENDPOINT = '';
 
 const products = [
   {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing'},
+  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:34.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:'',active:true,rail:'clothing'},
   {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics'},
   {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics'},
   {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics'},
   {id:104,name:'Magnetic Phone Holder',category:'Electronics',price:12.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▣',img:'',active:false,rail:'electronics'},
-  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'◒',img:'',active:false,rail:'clothing'},
-  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▱',img:'',active:false,rail:'clothing'},
+  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'◖',img:'',active:false,rail:'clothing'},
+  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▭',img:'',active:false,rail:'clothing'},
   {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing'},
   {id:109,name:'LED Ambient Light',category:'Home & Lifestyle',price:18.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'✦',img:'',active:false,rail:'home'},
   {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home'},
@@ -105,7 +106,7 @@ if (typeof document !== 'undefined') {
   };
   if (typeof window !== 'undefined') window.Frost = catalog;
 
-  const escapeHtml = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
+  const escapeHtml = value => String(value).replace(/[&<>\"']/g, ch => ({'&':'&','<':'<','>':'>','\"':'"',"'":'&#39;'})[ch]);
   let cart = catalog.readCart();
   const $ = id => document.getElementById(id);
 
