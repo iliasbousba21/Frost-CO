@@ -4,6 +4,7 @@
 
 const SUPPORT_EMAIL = 'frost-co@outlook.com';
 const STRIPE_GLOVE_LINK = 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00';
+const STRIPE_JACKET_LINK = 'https://buy.stripe.com/5kQ4gz8dP1mT2GQ4NcgEg02';
 
 // Leave this empty to call /api/checkout on the same host (the site is on Vercel).
 // If the pages stay on GitHub Pages, set the full URL of the deployed function, for example:
@@ -12,7 +13,7 @@ const CHECKOUT_ENDPOINT = '';
 
 const products = [
   {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing'},
-  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:34.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:'',active:true,rail:'clothing'},
+  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:34.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:STRIPE_JACKET_LINK,active:true,rail:'clothing'},
   {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics'},
   {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics'},
   {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics'},
@@ -143,7 +144,7 @@ if (typeof document !== 'undefined') {
       ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" loading="lazy">`
       : `<div class="placeholder-art" aria-hidden="true">${product.icon || '＋'}</div>`;
     const actions = product.active
-      ? `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>${product.paymentLink ? `<a class="button" href="${escapeHtml(product.paymentLink)}">BUY NOW →</a>` : ''}`
+      ? `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>${product.paymentLink ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener">BUY NOW →</a>` : ''}`
       : `<button class="add" disabled title="Add a real product and payment link to activate">COMING SOON</button>`;
     return `<article class="product-card"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
   }
