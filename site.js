@@ -7,10 +7,12 @@ const STRIPE_GLOVE_LINK = 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00';
 const STRIPE_JACKET_LINK = 'https://buy.stripe.com/5kQ4gz8dP1mT2GQ4NcgEg02';
 const STRIPE_POWER_LINK = 'https://buy.stripe.com/14A4gzbq1e9Fdlu4NcgEg03';
 const STRIPE_HOODIE_LINK = 'https://buy.stripe.com/eVq3cvfGhc1x0yI2F4gEg04';
+const STRIPE_MAGNET_LINK = 'https://buy.stripe.com/fZueVd8dP5D9ftCdjIgEg05';
 
 const CHECKOUT_ENDPOINT = '';
 
 const products = [
+  {id:301,name:'ArcticMagnet™ 25W Wireless Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'',icon:'🔌',paymentLink:STRIPE_MAGNET_LINK,active:true,rail:'electronics',description:'Fast 25W wireless charger with magnetic alignment. Charges compatible phones and devices quickly and cleanly. Compact and efficient for desk or bedside use.'},
   {id:300,name:'ArcticPower™ 150W Fast Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'assets/ArcticPower.jpg',icon:'⚡',paymentLink:STRIPE_POWER_LINK,active:true,rail:'electronics',description:'High-speed 150W GaN charger block. Charges laptops, phones and tablets at full speed. Compact, cool-running and supports multiple devices. USB-C PD 3.0.'},
   {id:201,name:'ArcticForge™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:STRIPE_HOODIE_LINK,active:true,rail:'clothing',description:'Soft fleece heated hoodie with 9 heating zones and 3 temperature levels. USB-powered, machine washable and lightweight. Perfect for cold days.'},
   {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing',description:'Warm thermal gloves with heating elements. Keep your hands comfortable in cold weather. Lightweight and practical for everyday use.'},
