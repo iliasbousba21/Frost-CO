@@ -6,12 +6,13 @@ const SUPPORT_EMAIL = 'frost-co@outlook.com';
 const STRIPE_GLOVE_LINK = 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00';
 const STRIPE_JACKET_LINK = 'https://buy.stripe.com/5kQ4gz8dP1mT2GQ4NcgEg02';
 const STRIPE_POWER_LINK = 'https://buy.stripe.com/14A4gzbq1e9Fdlu4NcgEg03';
+const STRIPE_HOODIE_LINK = 'https://buy.stripe.com/eVq3cvfGhc1x0yI2F4gEg04';
 
 const CHECKOUT_ENDPOINT = '';
 
 const products = [
   {id:300,name:'ArcticPower™ 150W Fast Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'assets/ArcticPower.jpg',icon:'⚡',paymentLink:STRIPE_POWER_LINK,active:true,rail:'electronics',description:'High-speed 150W GaN charger block. Charges laptops, phones and tablets at full speed. Compact, cool-running and supports multiple devices. USB-C PD 3.0.'},
-  {id:201,name:'ArcticHoodie™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:'',active:true,rail:'clothing',description:'Soft fleece heated hoodie with 9 heating zones and 3 temperature levels. USB-powered, machine washable and lightweight. Perfect for cold days.'},
+  {id:201,name:'ArcticForge™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:STRIPE_HOODIE_LINK,active:true,rail:'clothing',description:'Soft fleece heated hoodie with 9 heating zones and 3 temperature levels. USB-powered, machine washable and lightweight. Perfect for cold days.'},
   {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing',description:'Warm thermal gloves with heating elements. Keep your hands comfortable in cold weather. Lightweight and practical for everyday use.'},
   {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:39.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:STRIPE_JACKET_LINK,active:true,rail:'clothing',description:'Premium heated winter jacket with multiple heating zones. Designed for real cold. Stylish, functional and built to last the season.'},
   {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
