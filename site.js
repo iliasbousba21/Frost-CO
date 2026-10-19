@@ -5,27 +5,26 @@
 const SUPPORT_EMAIL = 'frost-co@outlook.com';
 const STRIPE_GLOVE_LINK = 'https://buy.stripe.com/bJe8wP9hT2qXgxGenMgEg00';
 const STRIPE_JACKET_LINK = 'https://buy.stripe.com/5kQ4gz8dP1mT2GQ4NcgEg02';
+const STRIPE_POWER_LINK = 'https://buy.stripe.com/14A4gzbq1e9Fdlu4NcgEg03';
 
-// Leave this empty to call /api/checkout on the same host (the site is on Vercel).
-// If the pages stay on GitHub Pages, set the full URL of the deployed function, for example:
-// 'https://your-project.vercel.app/api/checkout'
 const CHECKOUT_ENDPOINT = '';
 
 const products = [
-  {id:201,name:'ArcticHoodie™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:'',active:true,rail:'clothing'},
-  {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing'},
-  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:39.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:STRIPE_JACKET_LINK,active:true,rail:'clothing'},
-  {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics'},
-  {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics'},
-  {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics'},
-  {id:104,name:'Magnetic Phone Holder',category:'Electronics',price:12.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▣',img:'',active:false,rail:'electronics'},
-  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'◖',img:'',active:false,rail:'clothing'},
-  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▭',img:'',active:false,rail:'clothing'},
-  {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing'},
-  {id:109,name:'LED Ambient Light',category:'Home & Lifestyle',price:18.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'✦',img:'',active:false,rail:'home'},
-  {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home'},
-  {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home'},
-  {id:112,name:'Mini Night Light',category:'Home & Lifestyle',price:11.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'☼',img:'',active:false,rail:'home'}
+  {id:300,name:'ArcticPower™ 150W Fast Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'',icon:'⚡',paymentLink:STRIPE_POWER_LINK,active:true,rail:'electronics',description:'High-speed 150W GaN charger block. Charges laptops, phones and tablets at full speed. Compact, cool-running and supports multiple devices. USB-C PD 3.0.'},
+  {id:201,name:'ArcticHoodie™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:'',active:true,rail:'clothing',description:'Soft fleece heated hoodie with 9 heating zones and 3 temperature levels. USB-powered, machine washable and lightweight. Perfect for cold days.'},
+  {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing',description:'Warm thermal gloves with heating elements. Keep your hands comfortable in cold weather. Lightweight and practical for everyday use.'},
+  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:39.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:STRIPE_JACKET_LINK,active:true,rail:'clothing',description:'Premium heated winter jacket with multiple heating zones. Designed for real cold. Stylish, functional and built to last the season.'},
+  {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
+  {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
+  {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
+  {id:104,name:'Magnetic Phone Holder',category:'Electronics',price:12.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▣',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
+  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'◖',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
+  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▭',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
+  {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
+  {id:109,name:'LED Ambient Light',category:'Home & Lifestyle',price:18.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'✦',img:'',active:false,rail:'home',description:'Placeholder product.'},
+  {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home',description:'Placeholder product.'},
+  {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home',description:'Placeholder product.'},
+  {id:112,name:'Mini Night Light',category:'Home & Lifestyle',price:11.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'☼',img:'',active:false,rail:'home',description:'Placeholder product.'}
 ];
 
 const euro = n => new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(n);
@@ -140,6 +139,19 @@ if (typeof document !== 'undefined') {
     $('overlay')?.classList.remove('active');
     $('drawer')?.setAttribute('aria-hidden', 'true');
   }
+  function openProduct(product) {
+    const modal = $('productModal');
+    if (!modal) return;
+    const imgHtml = product.img ? `<img src="${escapeHtml(product.img)}" alt="" style="width:100%;max-height:280px;object-fit:cover;border-radius:8px;margin-bottom:16px">` : `<div style="font-size:64px;text-align:center;padding:40px 0">${product.icon || '＋'}</div>`;
+    const buyBtn = product.paymentLink ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener" style="margin-top:16px;display:inline-flex">BUY NOW →</a>` : '';
+    $('productModalContent').innerHTML = `${imgHtml}<div class="eyebrow">${escapeHtml(product.category)}</div><h2 style="font:500 28px 'Playfair Display',serif;margin:8px 0">${escapeHtml(product.name)}</h2><div class="price" style="font-size:20px;font-weight:700;margin:8px 0 16px">${euro(product.price)}</div><p style="line-height:1.7;color:#586978;margin-bottom:16px">${escapeHtml(product.description || 'No description yet.')}</p>${buyBtn}`;
+    modal.classList.add('active');
+    $('productOverlay').classList.add('active');
+  }
+  function closeProduct() {
+    $('productModal')?.classList.remove('active');
+    $('productOverlay')?.classList.remove('active');
+  }
   function card(product) {
     const media = product.img
       ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" loading="lazy">`
@@ -149,7 +161,7 @@ if (typeof document !== 'undefined') {
           ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener">BUY NOW →</a>`
           : `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>`)
       : `<button class="add" disabled title="Add a real product and payment link to activate">COMING SOON</button>`;
-    return `<article class="product-card"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
+    return `<article class="product-card" data-product="${product.id}" style="cursor:pointer"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
   }
   for (const rail of ['electronics', 'clothing', 'home']) {
     const el = $('rail-' + rail);
@@ -160,6 +172,12 @@ if (typeof document !== 'undefined') {
     if (rail) rail.scrollBy({left: Number(btn.dataset.scroll) * Math.max(240, rail.clientWidth * 0.8), behavior: 'smooth'});
   }));
   document.addEventListener('click', event => {
+    const cardEl = event.target.closest('[data-product]');
+    if (cardEl && !event.target.closest('a, button')) {
+      const product = products.find(p => p.id === Number(cardEl.dataset.product));
+      if (product) openProduct(product);
+      return;
+    }
     const button = event.target.closest('[data-add]');
     if (!button) return;
     const product = products.find(item => item.id === Number(button.dataset.add));
@@ -191,6 +209,8 @@ if (typeof document !== 'undefined') {
   $('openCart')?.addEventListener('click', openCart);
   $('closeCart')?.addEventListener('click', closeCart);
   $('overlay')?.addEventListener('click', closeCart);
+  $('productOverlay')?.addEventListener('click', closeProduct);
+  $('closeProduct')?.addEventListener('click', closeProduct);
   $('cartItems')?.addEventListener('click', event => {
     const button = event.target.closest('[data-action]');
     if (!button) return;
@@ -211,6 +231,6 @@ if (typeof document !== 'undefined') {
   });
   $('menuBtn')?.addEventListener('click', () => $('nav')?.classList.toggle('show'));
   document.querySelectorAll('.nav a').forEach(link => link.addEventListener('click', () => $('nav')?.classList.remove('show')));
-  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeCart(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeCart(); closeProduct(); } });
   renderCart();
 }
