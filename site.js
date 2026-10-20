@@ -11,27 +11,29 @@ const STRIPE_MAGNET_LINK = 'https://buy.stripe.com/fZueVd8dP5D9ftCdjIgEg05';
 const STRIPE_HOLDER_LINK = 'https://buy.stripe.com/3cI28r51D5D90yI4NcgEg06';
 const STRIPE_SKY_LINK = 'https://buy.stripe.com/28E7sL1Pr3v1a9i7ZogEg07';
 const STRIPE_GLOW_LINK = 'https://buy.stripe.com/bJecN5cu5fdJ0yI2F4gEg08';
+const STRIPE_BAG_LINK = 'https://buy.stripe.com/bJe8wPbq16Hdbdm6VkgEg09';
+// "Buy 2, get 1 free" bundles: one Stripe link per bundle, priced at 2x the single price.
+const STRIPE_GLOW_3FOR2_LINK = 'https://buy.stripe.com/14A5kD65He9F1CMgvUgEg0a';
+const STRIPE_HOLDER_3FOR2_LINK = 'https://buy.stripe.com/cNi5kDgKl2qXa9igvUgEg0b';
+const STRIPE_MAGNET_3FOR2_LINK = 'https://buy.stripe.com/28EcN51Pre9F81a93sgEg0c';
+const CLOTHING_SIZES = ['XS', 'S', 'M', 'L', 'XL'];
 
 const CHECKOUT_ENDPOINT = '';
 
 const products = [
-  {id:301,name:'ArcticMagnet™ 25W Wireless Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'assets/arcticmagnet.jpg',icon:'🔌',paymentLink:STRIPE_MAGNET_LINK,active:true,rail:'electronics',description:'Fast 25W wireless charger with magnetic alignment. Charges compatible phones and devices quickly and cleanly. Compact and efficient for desk or bedside use.'},
+  {id:301,name:'ArcticMagnet™ 25W Wireless Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'assets/arcticmagnet.jpg',icon:'🔌',paymentLink:STRIPE_MAGNET_LINK,deal:{link:STRIPE_MAGNET_3FOR2_LINK,price:49.98},active:true,rail:'electronics',description:'Fast 25W wireless charger with magnetic alignment. Charges compatible phones and devices quickly and cleanly. Compact and efficient for desk or bedside use.'},
   {id:300,name:'ArcticPower™ 150W Fast Charger',category:'Electronics',price:24.99,priceId:'',label:'NEW',img:'assets/ArcticPower.jpg',icon:'⚡',paymentLink:STRIPE_POWER_LINK,active:true,rail:'electronics',description:'High-speed 150W GaN charger block. Charges laptops, phones and tablets at full speed. Compact, cool-running and supports multiple devices. USB-C PD 3.0.'},
-  {id:201,name:'ArcticForge™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:STRIPE_HOODIE_LINK,active:true,rail:'clothing',description:'Soft fleece heated hoodie with 9 heating zones and 3 temperature levels. USB-powered, machine washable and lightweight. Perfect for cold days.'},
-  {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,active:true,rail:'clothing',description:'Warm thermal gloves with heating elements. Keep your hands comfortable in cold weather. Lightweight and practical for everyday use.'},
-  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:39.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:STRIPE_JACKET_LINK,active:true,rail:'clothing',description:'Premium heated winter jacket with multiple heating zones. Designed for real cold. Stylish, functional and built to last the season.'},
-  {id:104,name:'Arcticholder Magnetic Phone Holder',category:'Electronics',price:12.99,priceId:'',label:'NEW',img:'',icon:'▣',paymentLink:STRIPE_HOLDER_LINK,active:true,rail:'electronics',description:'Magnetic phone holder with 720° rotating base. Perfect for car dashboard, air vents, or desk use. Free expansion and any comfortable angle adjustment.'},
-  {id:101,name:'Wireless Phone Charger',category:'Electronics',price:19.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'⚡',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
-  {id:102,name:'USB-C Fast Charger',category:'Electronics',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'🔌',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
+  {id:201,name:'ArcticForge™ Heated Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'NEW',img:'assets/heated-hoodie.jpg',paymentLink:STRIPE_HOODIE_LINK,sizes:CLOTHING_SIZES,active:true,rail:'clothing',description:'Soft fleece heated hoodie with 9 heating zones and 3 temperature levels. USB-powered, machine washable and lightweight. Perfect for cold days.'},
+  {id:5,name:'ArcticHeat™ Thermal Gloves',category:'Clothing & Wearables',price:12.99,priceId:'',label:'AVAILABLE',img:'assets/arcticheat-gloves-v3.jpg',paymentLink:STRIPE_GLOVE_LINK,sizes:CLOTHING_SIZES,active:true,rail:'clothing',description:'Warm thermal gloves with heating elements. Keep your hands comfortable in cold weather. Lightweight and practical for everyday use.'},
+  {id:200,name:'ArcticJacket™ Heated Winter Jacket',category:'Clothing & Wearables',price:39.99,priceId:'',label:'NEW',img:'assets/arcticjacket.png',paymentLink:STRIPE_JACKET_LINK,sizes:CLOTHING_SIZES,active:true,rail:'clothing',description:'Premium heated winter jacket with multiple heating zones. Designed for real cold. Stylish, functional and built to last the season.'},
+  {id:104,name:'Arcticholder Magnetic Phone Holder',category:'Electronics',price:12.99,priceId:'',label:'NEW',img:'',icon:'▣',paymentLink:STRIPE_HOLDER_LINK,deal:{link:STRIPE_HOLDER_3FOR2_LINK,price:25.98},active:true,rail:'electronics',description:'Magnetic phone holder with 720° rotating base. Perfect for car dashboard, air vents, or desk use. Free expansion and any comfortable angle adjustment.'},
   {id:103,name:'Compact Bluetooth Speaker',category:'Electronics',price:24.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♫',img:'',active:false,rail:'electronics',description:'Placeholder product.'},
-  {id:106,name:'Everyday Hoodie',category:'Clothing & Wearables',price:29.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'◖',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
-  {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▭',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
+  {id:107,name:'ArcticCharm™ Snowflake Crossbody Bag',category:'Clothing & Wearables',price:25.99,priceId:'price_1USXQ8GX85ubMgt4Vo24M9FD',label:'NEW',icon:'▭',img:'assets/arcticcharm-bag.jpg',paymentLink:STRIPE_BAG_LINK,active:true,rail:'clothing',description:'Quilted black-and-white crossbody bag with a gold snowflake clasp. Carry it by the top handle or wear it crossbody on the detachable patterned strap. Compact enough for every day, roomy enough for your phone, wallet and keys.'},
   {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
   {id:302,name:'ArcticSky™ Galaxy Projector',category:'Home & Lifestyle',price:39.99,priceId:'price_1USHBJGX85ubMgt41fdhxYXE',label:'NEW',icon:'✦',img:'assets/arcticsky.jpg',paymentLink:STRIPE_SKY_LINK,active:true,rail:'home',description:'Turn your ceiling into a starry night sky. Projects twinkling stars and a soft, drifting nebula glow in multiple colour modes. Adjustable brightness and a sleep timer make it perfect for bedrooms, movie nights and relaxing evenings.'},
-  {id:303,name:'ArcticGlow™ RGB LED Strip Lights (20m)',category:'Home & Lifestyle',price:15.99,priceId:'price_1USWgEGX85ubMgt4Qr4dEdge',label:'NEW',icon:'✺',img:'',paymentLink:STRIPE_GLOW_LINK,active:true,rail:'home',description:'Light up any room in millions of colours. 20 metres of flexible, cuttable RGB LED strip with a handy remote: pick a colour, dim it down or switch to fading and flashing modes. Self-adhesive backing makes it easy to run behind a TV, along a bed frame, under shelves or around a gaming setup.'},
+  {id:303,name:'ArcticGlow™ RGB LED Strip Lights (20m)',category:'Home & Lifestyle',price:15.99,priceId:'price_1USWgEGX85ubMgt4Qr4dEdge',label:'NEW',icon:'✺',img:'',paymentLink:STRIPE_GLOW_LINK,deal:{link:STRIPE_GLOW_3FOR2_LINK,price:31.98},active:true,rail:'home',description:'Light up any room in millions of colours. 20 metres of flexible, cuttable RGB LED strip with a handy remote: pick a colour, dim it down or switch to fading and flashing modes. Self-adhesive backing makes it easy to run behind a TV, along a bed frame, under shelves or around a gaming setup.'},
   {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home',description:'Placeholder product.'},
   {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home',description:'Placeholder product.'},
-  {id:112,name:'Mini Night Light',category:'Home & Lifestyle',price:11.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'☼',img:'',active:false,rail:'home',description:'Placeholder product.'}
 ];
 
 const euro = n => new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(n);
@@ -146,12 +148,24 @@ if (typeof document !== 'undefined') {
     $('overlay')?.classList.remove('active');
     $('drawer')?.setAttribute('aria-hidden', 'true');
   }
+  const extrasStyle = document.createElement('style');
+  extrasStyle.textContent = '.pill.deal-pill{left:auto;right:12px;background:#be2f3c;color:#fff}.sizes{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:11px;color:#6d8491;margin:0 0 4px}.sizes span{border:1px solid #cbd9df;padding:3px 7px;font-weight:700;color:#12283b;font-size:10px}.size-note{font-size:10px;color:#81929b;margin:0 0 12px}.deal{background:#fbecee;color:#9c2430;font-size:12px;padding:8px 10px;margin:0 0 12px}.deal b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase}.button.deal-btn{background:#be2f3c;border-color:#be2f3c}.button.deal-btn:hover{background:#9c2430}';
+  document.head.appendChild(extrasStyle);
+  function extrasHtml(product) {
+    let html = '';
+    if (product.sizes) html += `<div class="sizes">Sizes: ${product.sizes.map(size => `<span>${escapeHtml(size)}</span>`).join('')}</div><p class="size-note">Choose your size on the payment page.</p>`;
+    if (product.deal) html += `<div class="deal"><b>Buy 2, get 1 free</b>3 for ${euro(product.deal.price)}</div>`;
+    return html;
+  }
+  function dealButton(product) {
+    return product.deal ? `<a class="button deal-btn" href="${escapeHtml(product.deal.link)}" target="_blank" rel="noopener">GET 3, PAY 2 →</a>` : '';
+  }
   function openProduct(product) {
     const modal = $('productModal');
     if (!modal) return;
     const imgHtml = product.img ? `<img src="${escapeHtml(product.img)}" alt="" style="width:100%;max-height:280px;object-fit:cover;border-radius:8px;margin-bottom:16px">` : `<div style="font-size:64px;text-align:center;padding:40px 0">${product.icon || '＋'}</div>`;
     const buyBtn = product.paymentLink ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener" style="margin-top:16px;display:inline-flex">BUY NOW →</a>` : '';
-    $('productModalContent').innerHTML = `${imgHtml}<div class="eyebrow">${escapeHtml(product.category)}</div><h2 style="font:500 28px 'Playfair Display',serif;margin:8px 0">${escapeHtml(product.name)}</h2><div class="price" style="font-size:20px;font-weight:700;margin:8px 0 16px">${euro(product.price)}</div><p style="line-height:1.7;color:#586978;margin-bottom:16px">${escapeHtml(product.description || 'No description yet.')}</p>${buyBtn}`;
+    $('productModalContent').innerHTML = `${imgHtml}<div class="eyebrow">${escapeHtml(product.category)}</div><h2 style="font:500 28px 'Playfair Display',serif;margin:8px 0">${escapeHtml(product.name)}</h2><div class="price" style="font-size:20px;font-weight:700;margin:8px 0 16px">${euro(product.price)}</div><p style="line-height:1.7;color:#586978;margin-bottom:16px">${escapeHtml(product.description || 'No description yet.')}</p>${extrasHtml(product)}${buyBtn} ${dealButton(product)}`;
     modal.classList.add('active');
     $('productOverlay').classList.add('active');
   }
@@ -165,10 +179,10 @@ if (typeof document !== 'undefined') {
       : `<div class="placeholder-art" aria-hidden="true">${product.icon || '＋'}</div>`;
     const actions = product.active
       ? (product.paymentLink
-          ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener">BUY NOW →</a>`
+          ? `<a class="button" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener">BUY NOW →</a>${dealButton(product)}`
           : `<button class="add" data-add="${product.id}">＋ ADD TO CART</button>`)
       : `<button class="add" disabled title="Add a real product and payment link to activate">COMING SOON</button>`;
-    return `<article class="product-card" data-product="${product.id}" style="cursor:pointer"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span></div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div><div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
+    return `<article class="product-card" data-product="${product.id}" style="cursor:pointer"><div class="product-media">${media}<span class="pill">${escapeHtml(product.label)}</span>${product.deal ? '<span class="pill deal-pill">2+1 FREE</span>' : ''}</div><div class="product-info"><div class="category">${escapeHtml(product.category)}</div><h3>${escapeHtml(product.name)}</h3><div class="price">${euro(product.price)}</div>${extrasHtml(product)}<div class="product-actions">${actions}</div>${product.active ? '' : '<p class="coming-soon">Placeholder — replace with your product, image and payment link.</p>'}</div></article>`;
   }
   for (const rail of ['electronics', 'clothing', 'home']) {
     const el = $('rail-' + rail);
