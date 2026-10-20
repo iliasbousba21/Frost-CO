@@ -31,7 +31,7 @@ const products = [
   {id:107,name:'ArcticCharm™ Snowflake Crossbody Bag',category:'Clothing & Wearables',price:25.99,priceId:'price_1USXQ8GX85ubMgt4Vo24M9FD',label:'NEW',icon:'▭',img:'assets/arcticcharm-bag.jpg',paymentLink:STRIPE_BAG_LINK,active:true,rail:'clothing',description:'Quilted black-and-white crossbody bag with a gold snowflake clasp. Carry it by the top handle or wear it crossbody on the detachable patterned strap. Compact enough for every day, roomy enough for your phone, wallet and keys.'},
   {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
   {id:302,name:'ArcticSky™ Galaxy Projector',category:'Home & Lifestyle',price:39.99,priceId:'price_1USHBJGX85ubMgt41fdhxYXE',label:'NEW',icon:'✦',img:'assets/arcticsky.jpg',paymentLink:STRIPE_SKY_LINK,active:true,rail:'home',description:'Turn your ceiling into a starry night sky. Projects twinkling stars and a soft, drifting nebula glow in multiple colour modes. Adjustable brightness and a sleep timer make it perfect for bedrooms, movie nights and relaxing evenings.'},
-  {id:303,name:'ArcticGlow™ RGB LED Strip Lights (20m)',category:'Home & Lifestyle',price:15.99,priceId:'price_1USWgEGX85ubMgt4Qr4dEdge',label:'NEW',icon:'✺',img:'',paymentLink:STRIPE_GLOW_LINK,deal:{link:STRIPE_GLOW_3FOR2_LINK,price:31.98},active:true,rail:'home',description:'Light up any room in millions of colours. 20 metres of flexible, cuttable RGB LED strip with a handy remote: pick a colour, dim it down or switch to fading and flashing modes. Self-adhesive backing makes it easy to run behind a TV, along a bed frame, under shelves or around a gaming setup.'},
+  {id:303,name:'ArcticGlow™ RGB LED Strip Lights (20m)',category:'Home & Lifestyle',price:15.99,priceId:'price_1USWgEGX85ubMgt4Qr4dEdge',label:'NEW',icon:'✺',img:'assets/arcticglow-led.jpg',paymentLink:STRIPE_GLOW_LINK,deal:{link:STRIPE_GLOW_3FOR2_LINK,price:31.98},active:true,rail:'home',description:'Light up any room in millions of colours. 20 metres of flexible, cuttable RGB LED strip with a handy remote: pick a colour, dim it down or switch to fading and flashing modes. Self-adhesive backing makes it easy to run behind a TV, along a bed frame, under shelves or around a gaming setup. USB-powered; the remote runs on AAA batteries.'},
   {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home',description:'Placeholder product.'},
   {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home',description:'Placeholder product.'},
 ];
@@ -175,7 +175,7 @@ if (typeof document !== 'undefined') {
   }
   function card(product) {
     const media = product.img
-      ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" loading="lazy">`
+      ? `<img src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" loading="lazy" onerror="this.style.display='none'">`
       : `<div class="placeholder-art" aria-hidden="true">${product.icon || '＋'}</div>`;
     const actions = product.active
       ? (product.paymentLink
