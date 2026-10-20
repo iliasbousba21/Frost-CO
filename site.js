@@ -10,6 +10,7 @@ const STRIPE_HOODIE_LINK = 'https://buy.stripe.com/eVq3cvfGhc1x0yI2F4gEg04';
 const STRIPE_MAGNET_LINK = 'https://buy.stripe.com/fZueVd8dP5D9ftCdjIgEg05';
 const STRIPE_HOLDER_LINK = 'https://buy.stripe.com/3cI28r51D5D90yI4NcgEg06';
 const STRIPE_SKY_LINK = 'https://buy.stripe.com/28E7sL1Pr3v1a9i7ZogEg07';
+const STRIPE_GLOW_LINK = 'https://buy.stripe.com/bJecN5cu5fdJ0yI2F4gEg08';
 
 const CHECKOUT_ENDPOINT = '';
 
@@ -27,6 +28,7 @@ const products = [
   {id:107,name:'Everyday Crossbody Bag',category:'Clothing & Wearables',price:22.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▭',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
   {id:108,name:'Winter Beanie',category:'Clothing & Wearables',price:14.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'clothing',description:'Placeholder product.'},
   {id:302,name:'ArcticSky™ Galaxy Projector',category:'Home & Lifestyle',price:39.99,priceId:'price_1USHBJGX85ubMgt41fdhxYXE',label:'NEW',icon:'✦',img:'assets/arcticsky.jpg',paymentLink:STRIPE_SKY_LINK,active:true,rail:'home',description:'Turn your ceiling into a starry night sky. Projects twinkling stars and a soft, drifting nebula glow in multiple colour modes. Adjustable brightness and a sleep timer make it perfect for bedrooms, movie nights and relaxing evenings.'},
+  {id:303,name:'ArcticGlow™ RGB LED Strip Lights (20m)',category:'Home & Lifestyle',price:15.99,priceId:'price_1USWgEGX85ubMgt4Qr4dEdge',label:'NEW',icon:'✺',img:'',paymentLink:STRIPE_GLOW_LINK,active:true,rail:'home',description:'Light up any room in millions of colours. 20 metres of flexible, cuttable RGB LED strip with a handy remote: pick a colour, dim it down or switch to fading and flashing modes. Self-adhesive backing makes it easy to run behind a TV, along a bed frame, under shelves or around a gaming setup.'},
   {id:110,name:'Reusable Travel Bottle',category:'Home & Lifestyle',price:16.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'♧',img:'',active:false,rail:'home',description:'Placeholder product.'},
   {id:111,name:'Desk Organiser',category:'Home & Lifestyle',price:13.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'▤',img:'',active:false,rail:'home',description:'Placeholder product.'},
   {id:112,name:'Mini Night Light',category:'Home & Lifestyle',price:11.99,priceId:'',label:'PRODUCT PLACEHOLDER',icon:'☼',img:'',active:false,rail:'home',description:'Placeholder product.'}
