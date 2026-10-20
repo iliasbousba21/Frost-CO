@@ -6,7 +6,7 @@ const catalog = require('../site.js');
 const checkout = require('../api/checkout.js');
 
 const root = path.join(__dirname, '..');
-const pages = ['index.html', 'shop.html', 'checkout.html', 'contact.html', 'shipping.html', 'privacy.html', 'success.html'];
+const pages = ['index.html', 'shop.html', 'checkout.html', 'contact.html', 'shipping.html', 'privacy.html', 'success.html', 'reviews.html'];
 
 test('catalog keeps gloves purchasable and placeholders closed', () => {
   const gloves = catalog.products.find(product => product.id === 5);
